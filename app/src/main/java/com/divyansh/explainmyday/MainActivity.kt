@@ -15,6 +15,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.divyansh.explainmyday.ui.theme.BackgroundDark
 import com.divyansh.explainmyday.ui.theme.ExplainMyDayTheme
 import com.divyansh.explainmyday.ui.theme.PrimaryBlue
@@ -31,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = BackgroundDark
                 ) {
-                    HomeScreen()
+                    AppNavigation()
                 }
             }
         }
@@ -39,7 +42,32 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen() {
+fun AppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = "home"
+    ) {
+
+        composable("home") {
+            HomeScreen(
+                onExplainClick = {
+                    navController.navigate("mood")
+                }
+            )
+        }
+
+        composable("mood") {
+            MoodScreen()
+        }
+    }
+}
+
+@Composable
+fun HomeScreen(
+    onExplainClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,9 +96,7 @@ fun HomeScreen() {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = {
-                // Next screen will come here later
-            },
+            onClick = onExplainClick,
             colors = ButtonDefaults.buttonColors(
                 containerColor = PrimaryBlue
             ),
@@ -86,4 +112,3 @@ fun HomeScreen() {
         }
     }
 }
-
