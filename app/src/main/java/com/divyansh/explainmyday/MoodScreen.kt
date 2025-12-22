@@ -3,7 +3,6 @@ package com.divyansh.explainmyday
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,11 +11,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.divyansh.explainmyday.ui.theme.BackgroundDark
 import com.divyansh.explainmyday.ui.theme.TextPrimary
 
 @Composable
-fun MoodScreen() {
+fun MoodScreen(
+    onMoodSelected: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -34,32 +34,26 @@ fun MoodScreen() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        MoodOption("😊 Good")
-        MoodOption("😐 Neutral")
-        MoodOption("😔 Low")
+        MoodOption("😊 Good", onMoodSelected)
+        MoodOption("😐 Neutral", onMoodSelected)
+        MoodOption("😔 Low", onMoodSelected)
     }
 }
 
 @Composable
-fun MoodOption(text: String) {
+fun MoodOption(
+    text: String,
+    onClick: () -> Unit
+) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = BackgroundDark
-        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable {
-                // Later: save mood & go next
-            }
+            .clickable { onClick() }
     ) {
         Text(
             text = text,
-            color = TextPrimary,
-            fontSize = 18.sp,
-            modifier = Modifier
-                .padding(20.dp)
-                .fillMaxWidth(),
+            modifier = Modifier.padding(20.dp),
             textAlign = TextAlign.Center
         )
     }
