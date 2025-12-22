@@ -48,6 +48,7 @@ fun AppNavigation() {
     NavHost(
         navController = navController,
         startDestination = "home"
+
     ) {
 
         composable("home") {
@@ -60,6 +61,10 @@ fun AppNavigation() {
 
         composable("mood") {
             MoodScreen()
+
+            composable("energy") {
+                EnergyScreen()
+            }
         }
     }
 }
