@@ -41,55 +41,38 @@ fun AppNavigation() {
 
         // HOME
         composable("home") {
-            HomeScreen(
-                onExplainClick = {
-                    navController.navigate("mood")
-                }
-            )
+            HomeScreen {
+                navController.navigate("mood")
+            }
         }
 
         // MOOD
         composable("mood") {
-            MoodScreen(
-                onMoodSelected = { mood ->
-                    navController.navigate("energy/$mood")
-                }
-            )
+            MoodScreen {
+                navController.navigate("energy")
+            }
         }
 
         // ENERGY
-        composable("energy/{mood}") { backStackEntry ->
-            val mood = backStackEntry.arguments?.getString("mood") ?: ""
-
-            EnergyScreen(
-                onEnergySelected = { energy ->
-                    navController.navigate("productivity/$mood/$energy")
-                }
-            )
+        composable("energy") {
+            EnergyScreen {
+                navController.navigate("productivity")
+            }
         }
 
         // PRODUCTIVITY
-        composable("productivity/{mood}/{energy}") { backStackEntry ->
-            val mood = backStackEntry.arguments?.getString("mood") ?: ""
-            val energy = backStackEntry.arguments?.getString("energy") ?: ""
-
-            ProductivityScreen(
-                onProductivitySelected = { productivity ->
-                    navController.navigate("result/$mood/$energy/$productivity")
-                }
-            )
+        composable("productivity") {
+            ProductivityScreen {
+                navController.navigate("result")
+            }
         }
 
         // RESULT
-        composable("result/{mood}/{energy}/{productivity}") { backStackEntry ->
-            val mood = backStackEntry.arguments?.getString("mood") ?: ""
-            val energy = backStackEntry.arguments?.getString("energy") ?: ""
-            val productivity = backStackEntry.arguments?.getString("productivity") ?: ""
-
+        composable("result") {
             ResultScreen(
-                mood = mood,
-                energy = energy,
-                productivity = productivity
+                mood = "neutral",
+                energy = "medium",
+                productivity = "medium"
             )
         }
     }
