@@ -37,8 +37,7 @@ fun AppNavigation() {
     NavHost(
         navController = navController,
         startDestination = "home"
-    )
-    {
+    ) {
 
         composable("home") {
             HomeScreen(
@@ -55,13 +54,7 @@ fun AppNavigation() {
                 }
             )
         }
-        composable("productivity") {
-            ProductivityScreen(
-                onProductivitySelected = {
-                    // next step: result screen
-                }
-            )
-        }
+
         composable("energy") {
             EnergyScreen(
                 onEnergySelected = {
@@ -69,6 +62,14 @@ fun AppNavigation() {
                 }
             )
         }
+
+        composable("productivity") {
+            ProductivityScreen(
+                onProductivitySelected = {
+                    // next: result screen
+                }
+            )
         }
     }
+}
 
