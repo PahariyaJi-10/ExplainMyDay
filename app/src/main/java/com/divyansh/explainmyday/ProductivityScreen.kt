@@ -3,7 +3,6 @@ package com.divyansh.explainmyday
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,14 +11,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.divyansh.explainmyday.ui.theme.BackgroundDark
 import com.divyansh.explainmyday.ui.theme.TextPrimary
 
 @Composable
-fun EnergyScreen(
-                 onEnergySelected: () -> Unit
+fun ProductivityScreen(
+    onProductivitySelected: () -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -28,7 +25,7 @@ fun EnergyScreen(
     ) {
 
         Text(
-            text = "How energetic did you feel today?",
+            text = "How productive was your day?",
             color = TextPrimary,
             fontSize = 22.sp,
             fontWeight = FontWeight.Medium,
@@ -36,33 +33,27 @@ fun EnergyScreen(
         )
 
         Spacer(modifier = Modifier.height(32.dp))
-        EnergyOption("🔋 High", onEnergySelected)
-        EnergyOption("🔋 Medium", onEnergySelected)
-        EnergyOption("🔋 Low", onEnergySelected)
+
+        ProductivityOption("🚀 Very Productive", onProductivitySelected)
+        ProductivityOption("🙂 Moderate", onProductivitySelected)
+        ProductivityOption("😴 Low", onProductivitySelected)
     }
 }
 
 @Composable
-fun EnergyOption(text: String,
-                 onClick: () -> Unit) {
+fun ProductivityOption(
+    text: String,
+    onClick: () -> Unit
+) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = BackgroundDark
-        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable {
-                // Next: navigate to productivity
-            }
+            .clickable { onClick() }
     ) {
         Text(
             text = text,
-            color = TextPrimary,
-            fontSize = 18.sp,
-            modifier = Modifier
-                .padding(20.dp)
-                .fillMaxWidth(),
+            modifier = Modifier.padding(20.dp),
             textAlign = TextAlign.Center
         )
     }
