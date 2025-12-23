@@ -39,6 +39,7 @@ fun AppNavigation() {
         startDestination = "home"
     ) {
 
+        // HOME
         composable("home") {
             HomeScreen(
                 onExplainClick = {
@@ -47,29 +48,49 @@ fun AppNavigation() {
             )
         }
 
+        // MOOD
         composable("mood") {
             MoodScreen(
-                onMoodSelected = {
-                    navController.navigate("energy")
+                onMoodSelected = { mood ->
+                    navController.navigate("energy/$mood")
                 }
             )
         }
 
-        composable("energy") {
+        // ENERGY
+        composable("energy/{mood}") { backStackEntry ->
+            val mood = backStackEntry.arguments?.getString("mood") ?: ""
+
             EnergyScreen(
-                onEnergySelected = {
-                    navController.navigate("productivity")
+                onEnergySelected = { energy ->
+                    navController.navigate("productivity/$mood/$energy")
                 }
             )
         }
 
-        composable("productivity") {
+        // PRODUCTIVITY
+        composable("productivity/{mood}/{energy}") { backStackEntry ->
+            val mood = backStackEntry.arguments?.getString("mood") ?: ""
+            val energy = backStackEntry.arguments?.getString("energy") ?: ""
+
             ProductivityScreen(
-                onProductivitySelected = {
-                    // next: result screen
+                onProductivitySelected = { productivity ->
+                    navController.navigate("result/$mood/$energy/$productivity")
                 }
+            )
+        }
+
+        // RESULT
+        composable("result/{mood}/{energy}/{productivity}") { backStackEntry ->
+            val mood = backStackEntry.arguments?.getString("mood") ?: ""
+            val energy = backStackEntry.arguments?.getString("energy") ?: ""
+            val productivity = backStackEntry.arguments?.getString("productivity") ?: ""
+
+            ResultScreen(
+                mood = mood,
+                energy = energy,
+                productivity = productivity
             )
         }
     }
 }
-
