@@ -29,19 +29,18 @@ fun HomeScreen(
 
         Text(
             text = "Explain My Day",
-            color = TextPrimary,
             fontSize = 28.sp,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center
+            fontWeight = FontWeight.Bold,
+            color = TextPrimary
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "A gentle reflection at the end of your day",
-            color = TextSecondary,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center
+            text = "Your daily reflection✨",
+            fontSize = 14.sp,
+            color = TextSecondary
+
         )
 
         Spacer(modifier = Modifier.height(32.dp))
