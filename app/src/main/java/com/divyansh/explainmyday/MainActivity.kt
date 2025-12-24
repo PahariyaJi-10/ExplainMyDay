@@ -39,44 +39,40 @@ fun AppNavigation() {
         startDestination = "home"
     ) {
 
-        // HOME
         composable("home") {
             HomeScreen {
                 navController.navigate("mood")
             }
         }
 
-        // MOOD
         composable("mood") {
-            MoodScreen {
-                navController.navigate("energy")
+            MoodScreen { mood ->
+                navController.navigate("energy/$mood")
             }
         }
 
-        // ENERGY
-        composable("energy") {
-            EnergyScreen {
-                navController.navigate("productivity")
+        composable("energy/{mood}") { backStackEntry ->
+            val mood = backStackEntry.arguments?.getString("mood") ?: ""
+
+            EnergyScreen { energy ->
+                navController.navigate("productivity/$mood/$energy")
             }
         }
 
-        // PRODUCTIVITY
-        composable("productivity") {
-            ProductivityScreen {
-                navController.navigate("result")
-            }
-        }
-
-        // RESULT
-        composable("result/{mood}/{energy}/{productivity}") { backStackEntry ->
+        composable("productivity/{mood}/{energy}") { backStackEntry ->
             val mood = backStackEntry.arguments?.getString("mood") ?: ""
             val energy = backStackEntry.arguments?.getString("energy") ?: ""
-            val productivity = backStackEntry.arguments?.getString("productivity") ?: ""
 
+            ProductivityScreen { productivity ->
+                navController.navigate("result/$mood/$energy/$productivity")
+            }
+        }
+
+        composable("result/{mood}/{energy}/{productivity}") { backStackEntry ->
             ResultScreen(
-                mood = mood,
-                energy = energy,
-                productivity = productivity
+                mood = backStackEntry.arguments?.getString("mood") ?: "",
+                energy = backStackEntry.arguments?.getString("energy") ?: "",
+                productivity = backStackEntry.arguments?.getString("productivity") ?: ""
             )
         }
     }

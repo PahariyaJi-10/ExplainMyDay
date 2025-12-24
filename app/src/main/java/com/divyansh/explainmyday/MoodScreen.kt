@@ -15,7 +15,7 @@ import com.divyansh.explainmyday.ui.theme.TextPrimary
 
 @Composable
 fun MoodScreen(
-    onMoodSelected: () -> Unit
+    onMoodSelected: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -34,9 +34,17 @@ fun MoodScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        MoodOption("😊 Good", onMoodSelected)
-        MoodOption("😐 Neutral", onMoodSelected)
-        MoodOption("😔 Low", onMoodSelected)
+        MoodOption("😊 Good") {
+            onMoodSelected("good")
+        }
+
+        MoodOption("😐 Neutral") {
+            onMoodSelected("neutral")
+        }
+
+        MoodOption("😔 Low") {
+            onMoodSelected("low")
+        }
     }
 }
 
