@@ -39,40 +39,57 @@ fun AppNavigation() {
         startDestination = "home"
     ) {
 
+        // HOME
         composable("home") {
-            HomeScreen {
-                navController.navigate("mood")
-            }
+            HomeScreen(
+                onExplainClick = {
+                    navController.navigate("mood")
+                }
+            )
         }
 
+        // MOOD
         composable("mood") {
-            MoodScreen { mood ->
-                navController.navigate("energy/$mood")
-            }
+            MoodScreen(
+                onMoodSelected = { mood ->
+                    navController.navigate("energy/$mood")
+                }
+            )
         }
 
+        // ENERGY
         composable("energy/{mood}") { backStackEntry ->
             val mood = backStackEntry.arguments?.getString("mood") ?: ""
 
-            EnergyScreen { energy ->
-                navController.navigate("productivity/$mood/$energy")
-            }
+            EnergyScreen(
+                onEnergySelected = { energy ->
+                    navController.navigate("productivity/$mood/$energy")
+                }
+            )
         }
 
+        // PRODUCTIVITY
         composable("productivity/{mood}/{energy}") { backStackEntry ->
             val mood = backStackEntry.arguments?.getString("mood") ?: ""
             val energy = backStackEntry.arguments?.getString("energy") ?: ""
 
-            ProductivityScreen { productivity ->
-                navController.navigate("result/$mood/$energy/$productivity")
-            }
+            ProductivityScreen(
+                onProductivitySelected = { productivity ->
+                    navController.navigate("result/$mood/$energy/$productivity")
+                }
+            )
         }
 
+        // RESULT (⚠️ THIS IS THE KEY FIX)
         composable("result/{mood}/{energy}/{productivity}") { backStackEntry ->
+            val mood = backStackEntry.arguments?.getString("mood") ?: ""
+            val energy = backStackEntry.arguments?.getString("energy") ?: ""
+            val productivity = backStackEntry.arguments?.getString("productivity") ?: ""
+
             ResultScreen(
-                mood = backStackEntry.arguments?.getString("mood") ?: "",
-                energy = backStackEntry.arguments?.getString("energy") ?: "",
-                productivity = backStackEntry.arguments?.getString("productivity") ?: ""
+                mood = mood,
+                energy = energy,
+                productivity = productivity
             )
         }
     }

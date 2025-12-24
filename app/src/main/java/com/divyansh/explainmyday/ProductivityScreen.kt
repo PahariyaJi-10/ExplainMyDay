@@ -15,7 +15,7 @@ import com.divyansh.explainmyday.ui.theme.TextPrimary
 
 @Composable
 fun ProductivityScreen(
-    onProductivitySelected: () -> Unit
+    onProductivitySelected: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -34,25 +34,26 @@ fun ProductivityScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        ProductivityOption("🚀 Very Productive", onProductivitySelected)
-        ProductivityOption("🙂 Moderate", onProductivitySelected)
-        ProductivityOption("😴 Low", onProductivitySelected)
+        ProductivityOption("high", "🚀 Very Productive", onProductivitySelected)
+        ProductivityOption("medium", "🙂 Moderate", onProductivitySelected)
+        ProductivityOption("low", "😴 Low", onProductivitySelected)
     }
 }
 
 @Composable
 fun ProductivityOption(
-    text: String,
-    onClick: () -> Unit
+    value: String,
+    label: String,
+    onClick: (String) -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { onClick() }
+            .clickable { onClick(value) }
     ) {
         Text(
-            text = text,
+            text = label,
             modifier = Modifier.padding(20.dp),
             textAlign = TextAlign.Center
         )

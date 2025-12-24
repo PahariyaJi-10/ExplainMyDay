@@ -18,7 +18,11 @@ fun ResultScreen(
     energy: String,
     productivity: String
 ) {
-    val resultText = getResultText(mood, energy, productivity)
+    val resultText = getResultText(
+        mood = mood,
+        energy = energy,
+        productivity = productivity
+    )
 
     Column(
         modifier = Modifier
