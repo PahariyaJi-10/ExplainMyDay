@@ -68,11 +68,15 @@ fun AppNavigation() {
         }
 
         // RESULT
-        composable("result") {
+        composable("result/{mood}/{energy}/{productivity}") { backStackEntry ->
+            val mood = backStackEntry.arguments?.getString("mood") ?: ""
+            val energy = backStackEntry.arguments?.getString("energy") ?: ""
+            val productivity = backStackEntry.arguments?.getString("productivity") ?: ""
+
             ResultScreen(
-                mood = "neutral",
-                energy = "medium",
-                productivity = "medium"
+                mood = mood,
+                energy = energy,
+                productivity = productivity
             )
         }
     }
